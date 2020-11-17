@@ -65,12 +65,12 @@ app.post('/login', async (req, res) => {
                 });
             } else {
                 res.status(400).json({
-                    message: "Login  Failed"
+                    message: "Login Failed"
                 });
             }
         } else {
             res.status(401).json({
-                message: "Email not registered"
+                message: "E-mail is not registered"
             })
         }
         await connection.close();
