@@ -2,8 +2,8 @@ async function register() {
     let data = {
         name: document.getElementById('name').value,
         password: document.getElementById('password').value,
-        mail: document.getElementById('mail').value,
-        number: document.getElementById('number').value
+        email: document.getElementById('mail').value,
+        phone: document.getElementById('number').value
     }
 
     fetch('http://localhost:3000/register', {
@@ -14,38 +14,19 @@ async function register() {
             }
         }).then(res => {
             if (res.status == 200) {
-                alert("Registered successfully");
-               
+                alert("Registration successful");
+                document.getElementById('signupForm').reset();
+                window.location.href ="/assests/login/login.html"
+              
             } else {
                 alert("Registration Failed");
-               
+              
             }
         })
-        .catch(err => console.log( err))
+        .catch(err => console.log("registration function : ", err))
 }
 
 
-async function login() {
-    let data = {
-        email: document.getElementById('loginName').value,
-        password: document.getElementById('loginPassword').value
-    }
-    fetch('http://localhost:3000/login', {
-        method: "POST",
-        body: JSON.stringify(data),
-        headers: {
-            'content-Type': "application/json"
-        }
-    }).then(res => {
-        if (res.status == 200) {
-            alert("Logged in Successfully");
 
-        } else if (res.status == 400 || res.status == 401) {
-            alert("Invalid Credentials");
 
-        }
-    })
-        .catch(err => console.log(err))
-
-}
 
