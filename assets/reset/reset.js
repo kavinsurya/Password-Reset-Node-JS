@@ -79,7 +79,7 @@ async function changepassword() {
     }).then(res => {
         if (res.status == 200) {
             alert("Password updated!!");
-            window.location.href ="/assests/login/login.html"
+            window.location.href ="/assets/login/login.html"
           
         } else if (res.status == 401) {
             alert("Email doesn't exist !!");

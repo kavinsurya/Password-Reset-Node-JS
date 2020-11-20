@@ -5,7 +5,6 @@ const bcrypt = require('bcrypt');
 const nodemailer = require('nodemailer');
 require('dotenv').config();
 
-
 const mongodb = require('mongodb');
 const client = mongodb.MongoClient;
 
@@ -14,7 +13,10 @@ const app = express()
 app.use(cors());
 app.use(bodyParser.json())
 
+
+
 const url = "mongodb://localhost:27017";
+
 
 app.get('/users', async function (req, res) {
     try {

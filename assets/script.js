@@ -16,7 +16,7 @@ async function register() {
             if (res.status == 200) {
                 alert("Registration successful");
                 document.getElementById('signupForm').reset();
-                window.location.href ="/assests/login/login.html"
+                window.location.href ="/assets/login/login.html"
               
             } else {
                 alert("Registration Failed");
