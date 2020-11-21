@@ -8,16 +8,17 @@ require('dotenv').config();
 const mongodb = require('mongodb');
 const client = mongodb.MongoClient;
 
-
+//middlewares
 const app = express()
 app.use(cors());
 app.use(bodyParser.json())
 
 
 
-const url = "mongodb://localhost:27017";
+//DB url 
+const url = process.env.url;
 
-
+//APi to view users
 app.get('/users', async function (req, res) {
     try {
         let connection = await client.connect(url);
@@ -32,6 +33,8 @@ app.get('/users', async function (req, res) {
 })
 
 
+
+//Api to register new user
 app.post('/register', async (req, res) => {
     try {
         let connection = await client.connect(url);
@@ -57,6 +60,8 @@ app.post('/register', async (req, res) => {
 
 })
 
+
+//Api to Login the user
 app.post('/login', async (req, res) => {
     try {
         let connection = await client.connect(url);
@@ -85,13 +90,13 @@ app.post('/login', async (req, res) => {
 })
 
 
-
+//Api to send the reset code via mail 
  app.post('/sendMail', async(req, res) => {
     try {
         let connection = await client.connect(url);
         let db = connection.db("password_reset");
         let checkvalidity = await db.collection("users").findOne({ email: req.body.email });
-        console.log(checkvalidity);
+      
         if (checkvalidity) {
             let data = await db.collection("reset").insertOne(req.body);
             let transporter = nodemailer.createTransport({
@@ -115,7 +120,7 @@ app.post('/login', async (req, res) => {
                 <p>Password reset team</p>
                 </div>`
             }
-            console.log(mailOptions);
+         
 
             transporter.sendMail(mailOptions, (err, info) => {
                 if (err) {
@@ -137,7 +142,7 @@ app.post('/login', async (req, res) => {
 
 
 
-
+//APi to validate the reset code
 
 app.post('/code', async(req, res) => {
     let connection = await client.connect(url);
@@ -155,6 +160,9 @@ app.post('/code', async(req, res) => {
     await connection.close();
 })
 
+
+
+//Api to reset the password for an user
 app.put('/resetpassword', async(req, res) => {
     let connection = await client.connect(url, { useUnifiedTopology: true });
     let db = connection.db("password_reset");
